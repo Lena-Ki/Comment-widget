@@ -1,25 +1,53 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import './data.json'
+import InputForm from './InputForm.js';
+import ItemList from './ItemList.js';
 
 function App() {
+  const [data, setComments] = React.useState ({
+    "comments": [
+      {
+        "id": 1,
+        "author": "Lena",
+        "content": "This task is so difficult",
+        "show": true
+      },
+      {
+        "id": 2,
+        "author": "Sasha",
+        "content": "I like this website",
+        "show": true
+      },
+      {
+        "id": 3,
+        "author": "Paul",
+        "content": "Crazyyyy!",
+        "show": true
+      }
+    ]
+  })
+
+  function deleteItem(id) {
+    setComments(
+      data.comments.map(item => {
+        if (item.id === id) {
+          item.show = !item.show
+        }
+        return item
+      })
+    )
+    console.log(data)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="fixed-container d-flex justify-content-around m-auto">
+      <ItemList
+        data={data}
+        deleteItem={deleteItem}
+      />
+      <InputForm />
+    </main>
   );
 }
 
