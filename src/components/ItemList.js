@@ -1,18 +1,23 @@
 import React from 'react';
 import Item from './Item';
 
-function ItemList({data, deleteItem}) {
-  console.log(data)
+export const ItemList = ({data}) => {
+
+  const showMessage = () => {
+    if (data.length === 0) {
+      return <div className="empty-list p-4 text-muted border-top border-light">Список пуст</div>
+    }
+  }
+
   return (
     <section className="to-do-list d-flex flex-column justify-content-start">
       <h2 className="mb-5 h3">Комментарии</h2>
       <ul className="list-group">
-        <div className="empty-list p-4 text-muted border-top border-light">Список пуст</div>
-        { data.comments.map( item => {
+        { showMessage() }
+        { data.map( item => {
           return <Item
-                    commentData={item}
                     key={item.id}
-                    deleteItem={deleteItem}
+                    {...item}
                  />
         }) }
 
@@ -20,5 +25,3 @@ function ItemList({data, deleteItem}) {
     </section>  
   )
 }
-
-export default ItemList

@@ -1,53 +1,45 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import './data.json'
-import InputForm from './InputForm.js';
-import ItemList from './ItemList.js';
+import {Context} from './context'
+// import './data.json'
+import InputForm from './components/InputForm.js';
+import {ItemList} from './components/ItemList.js';
 
 function App() {
-  const [data, setComments] = React.useState ({
-    "comments": [
-      {
-        "id": 1,
-        "author": "Lena",
-        "content": "This task is so difficult",
-        "show": true
-      },
-      {
-        "id": 2,
-        "author": "Sasha",
-        "content": "I like this website",
-        "show": true
-      },
-      {
-        "id": 3,
-        "author": "Paul",
-        "content": "Crazyyyy!",
-        "show": true
-      }
-    ]
-  })
+  
+  let [data, setComments] = useState([])
 
-  function deleteItem(id) {
-    setComments(
-      data.comments.map(item => {
-        if (item.id === id) {
-          item.show = !item.show
-        }
-        return item
-      })
-    )
-    console.log(data)
+  useEffect(() => {
+    const raw = localStorage.getItem('comments') || null
+    if (raw) {
+      setComments(JSON.parse(raw))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('comments', JSON.stringify(data))
+  }, [data])
+
+  const removeComment = id => {
+    setComments(data.filter(comment => {
+      return comment.id !== id
+    }))
   }
 
   return (
-    <main className="fixed-container d-flex justify-content-around m-auto">
-      <ItemList
-        data={data}
-        deleteItem={deleteItem}
-      />
-      <InputForm />
-    </main>
+    <Context.Provider value={{
+      removeComment
+    }}>
+      <main className="fixed-container d-flex justify-content-around m-auto">
+        <ItemList
+          data = {data}
+        />
+        <InputForm
+          data = {data}
+          setComments = {setComments}
+        />
+      </main>
+    </Context.Provider>
   );
 }
 

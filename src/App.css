@@ -16,20 +16,6 @@ body {
   margin-right: 2%;
 }
 
-.item--done{
-  opacity: 50%;
-}
-
-.item-name--hidden{
-  overflow: hidden;
-  overflow-wrap: normal;
-  max-height: 25px;
-}
-
-.text--linethrough{
-  text-decoration: line-through
-}
-
 .delete-button {
   height: 13px;
   width: 13px;
@@ -41,25 +27,6 @@ body {
   background-image: url('img/delete-button.png');
   background-repeat: no-repeat;
   background-position: center;
-}
-
-.display-button {
-  width: 10px;
-  height: 10px;
-  
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  border: none;
-  cursor: pointer;
-  background-image: url('img/arrow.png');
-  background-repeat: no-repeat;
-  background-position: center;
-
-  transition: all 0.3s
-}
-
-.button--rotate {
-  transform: rotate(90deg);
 }
 
 /* input form */
