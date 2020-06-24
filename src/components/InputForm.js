@@ -1,16 +1,9 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-function InputForm( {data, setComments} ) {
+function InputForm({ data, setComments }) {
 
   const [author, setAuthor] = useState('')
   const [content, setContent] = useState('')
-
-  // const addComment = e => {
-  //   e.preventDefault()
-    
-  //   console.log(author)
-  //   console.log(content)
-  // }
   
   const addComment = e => {
     e.preventDefault()

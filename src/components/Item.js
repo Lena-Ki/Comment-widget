@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import {Context} from '../context'
 
-function Item({ author, id, content, deleteItem }) {
+function Item({ author, id, content }) {
 
   const {removeComment} = useContext(Context)
 

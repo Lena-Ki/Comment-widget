@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import './App.css';
 import {Context} from './context'
-// import './data.json'
 import InputForm from './components/InputForm.js';
 import {ItemList} from './components/ItemList.js';
 
 function App() {
-  
   let [data, setComments] = useState([])
 
   useEffect(() => {
