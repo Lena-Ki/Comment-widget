@@ -1,44 +1,41 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react'
+import {connect} from 'react-redux'
+import {fetchComments} from './redux/actions'
 import './App.css';
-import {Context} from './context'
-import InputForm from './components/InputForm.js';
-import {ItemList} from './components/ItemList.js';
+import InputForm from './components/InputForm.js'
+import ItemList from './components/ItemList.js'
 
-function App() {
-  let [data, setComments] = useState([])
+function App({comments}) {
 
   useEffect(() => {
     const raw = localStorage.getItem('comments') || null
-    if (raw) {
-      setComments(JSON.parse(raw))
-    }
+    fetchComments(raw)
+
+    // if (raw) {
+    //   setComments(JSON.parse(raw))
+    // }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('comments', JSON.stringify(data))
-  }, [data])
-
-  const removeComment = id => {
-    setComments(data.filter(comment => {
-      return comment.id !== id
-    }))
-  }
+    localStorage.setItem('comments', JSON.stringify(comments))
+  }, [comments])
 
   return (
-    <Context.Provider value={{
-      removeComment
-    }}>
-      <main className="fixed-container d-flex justify-content-around m-auto">
-        <ItemList
-          data = {data}
-        />
-        <InputForm
-          data = {data}
-          setComments = {setComments}
-        />
-      </main>
-    </Context.Provider>
+    <main className="fixed-container d-flex justify-content-around m-auto">
+      <ItemList/>
+      <InputForm/>
+    </main>
   );
 }
 
-export default App;
+const mapDispatchToProps = {
+  fetchComments
+}
+
+const mapStateToProps = state => {
+  return {
+    comments: state.comments
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

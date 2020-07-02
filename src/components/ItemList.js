@@ -1,10 +1,10 @@
-import React from 'react';
-import Item from './Item';
+import React from 'react'
+import {connect} from 'react-redux'
+import Item from './Item'
 
-export const ItemList = ({data}) => {
-
+const ItemList = ({comments}) => {
   const showMessage = () => {
-    if (data.length === 0) {
+    if (!comments.length) {
       return <div className="empty-list p-4 text-muted border-top border-light">Список пуст</div>
     }
   }
@@ -14,14 +14,21 @@ export const ItemList = ({data}) => {
       <h2 className="mb-5 h3">Комментарии</h2>
       <ul className="list-group">
         { showMessage() }
-        { data.map( item => {
+        { comments.map( item => {
           return <Item
                     key={item.id}
                     {...item}
                  />
         }) }
-
       </ul>
     </section>  
   )
 }
+
+const mapStateToProps = state => {
+  return {
+    comments: state.comments
+  }
+} 
+
+export default connect(mapStateToProps, null)(ItemList)

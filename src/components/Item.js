@@ -1,9 +1,8 @@
-import React, {useContext} from 'react'
-import {Context} from '../context'
+import React from 'react'
+import {connect} from 'react-redux'
+import {removeComment} from '../redux/actions'
 
-function Item({ author, id, content }) {
-
-  const {removeComment} = useContext(Context)
+function Item({ author, id, content, removeComment }) {
 
   return (
     <li className="list-group-item list-group-item-action list-item bg-white mb-3">
@@ -28,4 +27,8 @@ function Item({ author, id, content }) {
   )
 }
 
-export default Item
+const mapDispatchToProps = {
+  removeComment
+}
+
+export default connect(null, mapDispatchToProps)(Item)
