@@ -3,7 +3,6 @@ import {connect} from 'react-redux'
 import {removeComment} from '../redux/actions'
 
 function Item({ author, id, content, removeComment }) {
-
   return (
     <li className="list-group-item list-group-item-action list-item bg-white mb-3">
       <div className="d-flex w-100 justify-content-between align-items-start">

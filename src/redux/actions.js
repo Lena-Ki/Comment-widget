@@ -1,4 +1,4 @@
-import {CREATE_COMMENT, FETCH_COMMENTS, UPDATE_STORAGE, REMOVE_COMMENT} from './types'
+import {CREATE_COMMENT, FETCH_COMMENTS, REMOVE_COMMENT} from './types'
 
 export function createComment(comment) {
   return {
@@ -7,24 +7,15 @@ export function createComment(comment) {
   }
 }
 
-export function fetchComments(data) {
-  console.log(data)
+export function fetchComments() {
   return {
-    type: FETCH_COMMENTS,
-    payload: data
+    type: FETCH_COMMENTS
   }
 }
 
-export function updateStorage(data) {
-  return {
-    type: UPDATE_STORAGE,
-    payload: data
-  }
-}
-
-export function removeComment(item) {
+export function removeComment(id) {
   return {
     type: REMOVE_COMMENT,
-    payload: item.id
+    payload: id
   }
 }

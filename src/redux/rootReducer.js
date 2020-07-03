@@ -1,4 +1,4 @@
-import {CREATE_COMMENT, FETCH_COMMENTS, UPDATE_STORAGE, REMOVE_COMMENT} from './types'
+import {CREATE_COMMENT, FETCH_COMMENTS, REMOVE_COMMENT} from './types'
 
 const initialState = {
   comments: [],
@@ -9,16 +9,18 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case CREATE_COMMENT:
-      return { ...state, comments: [...state.comments, action.payload] }
+      let newState = [...state.comments, action.payload]
+      localStorage.setItem('comments', JSON.stringify(newState))
+      return { ...state, comments: newState }
     case FETCH_COMMENTS:
-      return { ...state, comments: action.payload}
-    case UPDATE_STORAGE:
-      return state
+      let data = localStorage.getItem('comments') || null
+      return { ...state, comments: JSON.parse(data)}
     case REMOVE_COMMENT:
-      console.log(action.payload)
-      return { ...state, comments: state.comments.filter(comment => {
+      let newComments = state.comments.filter(comment => {
         return comment.id !== action.payload
-      })}
+      })
+      localStorage.setItem('comments', JSON.stringify(newComments))
+      return { ...state, comments: newComments }
     default: return state
   }
 }
